@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8" />
+	<title>File Entry Scan Result</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.css"/>
+	<script type="text/javascript" src="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.js"></script>
+	<script src="/js/fileEntry.js"></script>
+</head>
+
+<body style="margin-right:15px;margin-left:15px">
+	<div style="padding:15px">
+	<h2>File Details</h2>
+	<h5>This table shows all scan detailed information of a single file..</h5>
+	
+	</div>
+	<table id="FileEntryTable" class="display">
+      
+       <!-- Header Table -->
+       <thead>
+            <tr>
+                <th>FileName</th>
+				<th>EntryName</th>
+                <th>Type</th>
+                <th>occurrence</th>
+            </tr>
+        </thead>
+        <!-- Footer Table -->
+        <tfoot>
+            <tr>
+                <th>FileName</th>
+				<th>EntryName</th>
+                <th>Type</th>
+                <th>occurrence</th>
+            </tr>
+        </tfoot>
+    </table>
+    <table id="FileEntryTable" class="display">
+       <!-- Header Table -->
+       <thead>
+            <tr>
+                <th>FileName</th>
+				<th>EntryName</th>
+                <th>Type</th>
+                <th>occurrence</th>
+            </tr>
+        </thead>
+        <!-- Footer Table -->
+        <tfoot>
+            <tr>
+                <th>FileName</th>
+				<th>EntryName</th>
+                <th>Type</th>
+                <th>occurrence</th>
+            </tr>
+        </tfoot>
+    </table>
+    <div>
+    <div>
+	<b>FileName</b> The filename of the file.
+	</div> 
+	<div>
+	<b>EntryName</b> Different Entries shows different type of information of the scan result.
+	<br/><b>View_XXX:XXX</b>: stands for a viewinstance in the file, when the EntryName is of this, then the type 
+	will be VOCount, and the occurence number will be the number of records of this vo in this file.
+	<br/><b>rowkey</b>: type will be RowKeyCount, occurrence is the total number of records of this file.
+	<br/><b>NoSguidTag_Route_HRA_EVAL_SECTIONS_WITH_RATINGS.0x0000.0x0000</b>: if the entryName be like this,
+	and the type values NoSguidTag, this row means for ViewObject "Route" with rowkey "HRA_EVAL_SECTIONS_WITH_RATINGS.0x0000.0x0000"
+	does not have SGUID tag added.
+	<br/>
+	<b>RouteContextUsage1_SGUID_401B43742FA92BDCE05355B0F20A36AD</b>: if the entry look like this, 
+	It means for vo RouteContextUsage1 has a duplicated sguid populated with value 401B43742FA92BDCE05355B0F20A36AD and the occurrence values times it duplicates.
+	<br/><b>BalanceAttributeEx_SGUID_NULL</b>:This means for vo BalanceAttributeEx has SGUID tag but with isnull=true the type would be NULL-SGUID.
+	</div> 
+	</div>
+</body>
+</html>

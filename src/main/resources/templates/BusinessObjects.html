@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>SGUID Migration Status</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.css" />
+<script type="text/javascript"
+	src="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.js"></script>
+<script type="text/javascript"
+	src="//cdn.bootcss.com/jquery.form/3.51/jquery.form.min.js" />
+<script src="/js/bo.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-header">
+					<h3>BusinessObjects Relationship</h3>
+				</div>
+				<form id="searchForm" 
+					th:action="@{/boData}" th:object="${BusinessObjectsBinding}"
+					method="post">
+					<input id="pageindex" type="hidden" name="pageindex" value="0" />
+					<div class="form-group">
+						<label for="vo">ViewObject</label> 
+						<input type="text" class="form-control" id="vo"
+						    th:field="${BusinessObjectsBinding.vo_name}"
+							aria-describedby="voHelp" placeholder=""/> 
+							<small id="voHelp" class="form-text text-muted">
+							Enter voname like not supported.</small>
+					</div>
+					<div class="form-group">
+						<label for="eo">Entity Object</label> 
+						<input type="text" class="form-control" id="eo"
+						    th:field="${BusinessObjectsBinding.eo_name}"
+							aria-describedby="eoHelp"/> 
+							<small id="eoHelp" class="form-text text-muted">
+							Enter eoname like not supported</small>
+					</div>
+					<div class="form-group">
+						<label for="sdf">Seeddata file</label> 
+						<input type="text" class="form-control" id="sdf" th:field="${BusinessObjectsBinding.sdf_path}"
+							aria-describedby="emailHelp" placeholder="sdf"/> 
+							<small id="sdfHelp" class="form-text text-muted">
+							Enter SDF path like supported.</small>
+					</div>
+					<div class="form-group">
+						<label for="amName">AM</label> 
+						<input type="text" class="form-control" id="amName"
+							aria-describedby="amNameHelp" /> 
+							<small id="amNameHelp" class="form-text text-muted">
+							Enter AM Name like not supported</small>
+					</div>
+					<div class="form-group">
+						<label for="dboName">DataBase Object Name</label> 
+						<input type="text" class="form-control" id="dboName"
+						th:field="${BusinessObjectsBinding.dbo_name}"
+							aria-describedby="dboNameHelp" /> 
+							<small id="dboNameHelp" class="form-text text-muted">
+							Enter DB Object name like supported.</small>
+					</div>
+					<div class="form-group">
+						<label for="dboClumnName">DB Obj Column Name</label> 
+						<input type="text" class="form-control" id="dbo_col_name"
+						th:field="${BusinessObjectsBinding.dbo_col_name}" 
+							aria-describedby="dbocolnameHelp" /> 
+							<small id="dbocolnameHelp" class="form-text text-muted">
+							Enter Column like not support.</small>
+					</div>
+					<button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<table id="ProcessStatus" class="display">
+
+				<!-- Header Table -->
+				<thead>
+					<tr>
+						<th>vo definiation</th>
+						<th>vo</th>
+						<th>vo extends</th>
+						<th>eo</th>
+						<th>db object</th>
+						<th>db object column</th>
+						<th>sdf</th>
+						<th>sdf am</th>
+						<th>sdf vo</th>
+					</tr>
+				</thead>
+				<!-- Footer Table -->
+				<tfoot>
+					<tr>
+						<th>vo definiation</th>
+						<th>vo</th>
+						<th>vo extends</th>
+						<th>eo</th>
+						<th>db object</th>
+						<th>db object column</th>
+						<th>sdf</th>
+						<th>sdf am</th>
+						<th>sdf vo</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
