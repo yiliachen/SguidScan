@@ -13,6 +13,7 @@ public class IssueCountMapper implements RowMapper<IssueCountMapper> {
 	private Long Duplicated;
 	private String email;
 	private String product;
+	private Long indexmissing;
 	public String getEmail() {
 		return email;
 	}
@@ -94,15 +95,24 @@ public class IssueCountMapper implements RowMapper<IssueCountMapper> {
 		IssueCountMapper bcm = new IssueCountMapper();
 		bcm.setBranch(rs.getString(1));
 		bcm.setFilePath(rs.getString(2));
-		bcm.setEmail(rs.getString(3));
-		bcm.setProduct(rs.getString(4));
-		bcm.setNullSGUID(rs.getLong(5));
-		bcm.setDuplicated(rs.getLong(6));
-		bcm.setBULKSEEDMissing(rs.getLong(7));
-		bcm.setERROR_DUPSGUID(rs.getLong(8));
-		bcm.setERROR_SGUIDDIFF(rs.getLong(9));		
+//		bcm.setEmail(rs.getString(3));
+		bcm.setProduct(rs.getString(3));
+		bcm.setNullSGUID(rs.getLong(4));
+		bcm.setDuplicated(rs.getLong(5));
+		bcm.setBULKSEEDMissing(rs.getLong(6));
+		bcm.setERROR_DUPSGUID(rs.getLong(7));
+		bcm.setERROR_SGUIDDIFF(rs.getLong(8));		
+		bcm.setERROR_SGUIDINDEX(rs.getLong(9));
 		
 		return bcm;
+	}
+
+	public Long getERROR_SGUIDINDEX() {
+		return indexmissing;
+	}
+
+	public void setERROR_SGUIDINDEX(Long indexmissing) {
+		this.indexmissing = indexmissing;
 	}
 
 }

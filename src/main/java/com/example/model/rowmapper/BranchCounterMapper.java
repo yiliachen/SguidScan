@@ -19,6 +19,7 @@ public class BranchCounterMapper implements RowMapper<BranchCounterMapper> {
 	private Long BULKSEEDMissing;
 	private Long ERROR_DUPSGUID;
 	private Long ERROR_SGUIDDIFF;
+	private Long ERROR_SGUIDINDEX;
 	@Override
 	
 	public BranchCounterMapper mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -30,6 +31,7 @@ public class BranchCounterMapper implements RowMapper<BranchCounterMapper> {
 		bcm.setBULKSEEDMissing(rs.getLong(5));
 		bcm.setERROR_DUPSGUID(rs.getLong(6));
 		bcm.setERROR_SGUIDDIFF(rs.getLong(7));
+		bcm.setERROR_SGUIDINDEX(rs.getLong(8));
 		return bcm;
 	}
 	public String getBranch() {
@@ -67,6 +69,12 @@ public class BranchCounterMapper implements RowMapper<BranchCounterMapper> {
 	}
 	public void setERROR_SGUIDDIFF(Long eRROR_SGUIDDIFF) {
 		ERROR_SGUIDDIFF = eRROR_SGUIDDIFF;
+	}
+	public Long getERROR_SGUIDINDEX() {
+		return ERROR_SGUIDINDEX;
+	}
+	public void setERROR_SGUIDINDEX(Long eRROR_SGUIDINDEX) {
+		ERROR_SGUIDINDEX = eRROR_SGUIDINDEX;
 	}
 	
 	

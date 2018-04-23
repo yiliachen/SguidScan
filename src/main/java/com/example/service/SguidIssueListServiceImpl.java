@@ -70,7 +70,7 @@ public class SguidIssueListServiceImpl implements SguidIssueListService{
 
 	@Override
 	public Iterable<IssueCountMapper> getSguidIssueListFull() {
-		String sql = "select branch, filepath, poc.mail, product, NullSGUID, Duplicated, BULKSEEDMissing, ERROR_DUPSGUID, ERROR_SGUIDDIFF from "+
+		String sql = "select branch, filepath, product, NullSGUID, Duplicated, BULKSEEDMissing, ERROR_DUPSGUID, ERROR_SGUIDDIFF, ERROR_SGUIDINDEX, ISSUE_TYPE from "+
 				"(select branch, "+
 						"filepath, "+
 						"case when product = 'hrx' then substring(substring_index(substring_index(filepath,'/',6),'/',-1) ,4,5) else product end as product, "+ 
@@ -78,13 +78,17 @@ public class SguidIssueListServiceImpl implements SguidIssueListService{
 						"Duplicated, "+
 						"BULKSEEDMissing,"+ 
 						"ERROR_DUPSGUID, "+
-						"ERROR_SGUIDDIFF "+
+						"ERROR_SGUIDDIFF, "+
+						"ERROR_SGUIDINDEX, "+
+						"ISSUE_TYPE "+
 						 "from (select branch, filepath, substring_index(substring_index(filepath,'/',3),'/',-1) as product,"+
 						"sum(case when issue_type = 'NullSGUID' then 1 else 0 end) as 'NullSGUID', "+
 						"sum(case when issue_type = 'Duplicated' then 1 else 0 end ) as 'Duplicated', "+
 						"sum(case when issue_type = 'BULKSEEDMissing' then 1 else 0 end) as 'BULKSEEDMissing', "+
 						"sum(case when issue_type = 'ERROR_DUPSGUID' then 1 else 0 end ) as 'ERROR_DUPSGUID', "+
-						"sum(case when issue_type = 'ERROR_SGUIDDIFF' then 1 else 0 end) as 'ERROR_SGUIDDIFF' "+ 
+						"sum(case when issue_type = 'ERROR_SGUIDDIFF' then 1 else 0 end) as 'ERROR_SGUIDDIFF', "+ 
+						"sum(case when issue_type = 'ERROR_SGUIDINDEX' then 1 else 0 end) as 'ERROR_SGUIDINDEX', "+ 
+						"GROUP_CONCAT( issue_type, ' ')  as 'ISSUE_TYPE' "+ 
 						"from sguid_issue_list issuelist group by branch, filepath, substring_index(substring_index(filepath,'/',3),'/',-1)) tmp) tmp2 "+
 						"left join pocfiles poc on tmp2.product = poc.path";
 						return (List<IssueCountMapper>) this.jdbcTemplate.query(sql, new IssueCountMapper());
@@ -98,13 +102,15 @@ public class SguidIssueListServiceImpl implements SguidIssueListService{
 				"Duplicated, " + 
 				"BULKSEEDMissing, " + 
 				"ERROR_DUPSGUID, " + 
-				"ERROR_SGUIDDIFF" + 
+				"ERROR_SGUIDDIFF," + 
+				"ERROR_SGUIDINDEX" + 
 				" from (select branch, filepath, substring_index(substring_index(filepath,'/',3),'/',-1) as product," + 
 				"sum(case when issue_type = 'NullSGUID' then 1 else 0 end) as 'NullSGUID', " + 
 				"sum(case when issue_type = 'Duplicated' then 1 else 0 end ) as 'Duplicated'," + 
 				"sum(case when issue_type = 'BULKSEEDMissing' then 1 else 0 end) as 'BULKSEEDMissing'," + 
 				"sum(case when issue_type = 'ERROR_DUPSGUID' then 1 else 0 end ) as 'ERROR_DUPSGUID'," + 
-				"sum(case when issue_type = 'ERROR_SGUIDDIFF' then 1 else 0 end) as 'ERROR_SGUIDDIFF'" + 
+				"sum(case when issue_type = 'ERROR_SGUIDDIFF' then 1 else 0 end) as 'ERROR_SGUIDDIFF'," + 
+				"sum(case when issue_type = 'ERROR_SGUIDINDEX' then 1 else 0 end) as 'ERROR_SGUIDINDEX'" + 
 				"from sguid_issue_list issuelist group by branch, substring_index(substring_index(filepath,'/',3),'/',-1)) tmp";
 		return (List<BranchCounterMapper>)this.jdbcTemplate.query(sql, new BranchCounterMapper());
 	}
