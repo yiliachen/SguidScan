@@ -88,7 +88,7 @@ public class SguidIssueListServiceImpl implements SguidIssueListService{
 						"sum(case when issue_type = 'ERROR_DUPSGUID' then 1 else 0 end ) as 'ERROR_DUPSGUID', "+
 						"sum(case when issue_type = 'ERROR_SGUIDDIFF' then 1 else 0 end) as 'ERROR_SGUIDDIFF', "+ 
 						"sum(case when issue_type = 'ERROR_SGUIDINDEX' then 1 else 0 end) as 'ERROR_SGUIDINDEX', "+ 
-						"GROUP_CONCAT( issue_type, ' ')  as 'ISSUE_TYPE' "+ 
+						"GROUP_CONCAT(distinct issue_type, ' ')  as 'ISSUE_TYPE' "+ 
 						"from sguid_issue_list issuelist group by branch, filepath, substring_index(substring_index(filepath,'/',3),'/',-1)) tmp) tmp2 "+
 						"left join pocfiles poc on tmp2.product = poc.path";
 						return (List<IssueCountMapper>) this.jdbcTemplate.query(sql, new IssueCountMapper());

@@ -1,12 +1,6 @@
 package com.example.controller;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,14 +8,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dao.POCFilePathDAOImpl;
-import com.example.model.FileEntrySum;
 import com.example.model.SguidIssueList;
 import com.example.model.rowmapper.BranchCounterMapper;
 import com.example.model.rowmapper.IssueCountMapper;
 import com.example.model.rowmapper.PocFiles;
-import com.example.pojo.FileList;
 import com.example.service.SguidIssueListService;
-import com.example.xmlpaser.xmlParser;
 
 @RestController
 public class SguidIssueListRestController {
@@ -69,5 +60,4 @@ public class SguidIssueListRestController {
 	public Iterable<PocFiles> GetPocs(){
 		return pocFilePathDAOImpl.getPocs();
 	}
-	
 }

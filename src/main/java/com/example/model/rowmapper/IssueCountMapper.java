@@ -14,6 +14,8 @@ public class IssueCountMapper implements RowMapper<IssueCountMapper> {
 	private String email;
 	private String product;
 	private Long indexmissing;
+	private String issueType;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -103,6 +105,7 @@ public class IssueCountMapper implements RowMapper<IssueCountMapper> {
 		bcm.setERROR_DUPSGUID(rs.getLong(7));
 		bcm.setERROR_SGUIDDIFF(rs.getLong(8));		
 		bcm.setERROR_SGUIDINDEX(rs.getLong(9));
+		bcm.setIssueType(rs.getString(10));
 		
 		return bcm;
 	}
@@ -113,6 +116,14 @@ public class IssueCountMapper implements RowMapper<IssueCountMapper> {
 
 	public void setERROR_SGUIDINDEX(Long indexmissing) {
 		this.indexmissing = indexmissing;
+	}
+
+	public String getIssueType() {
+		return issueType;
+	}
+
+	public void setIssueType(String issueType) {
+		this.issueType = issueType;
 	}
 
 }
