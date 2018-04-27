@@ -44,15 +44,13 @@ public class SguidIssueListRestController {
 	}
 	
 	@RequestMapping(path = "/PocMaintain", method = RequestMethod.GET)
-	public void ProcessPocMaintain(@RequestParam("mail") String mail,
-			@RequestParam("path") String path) {
-		pocFilePathDAOImpl.CreateReplacePoc(new PocFiles(mail, path));
+	public void ProcessPocMaintain(@RequestParam("mail") String mail ) {
+		pocFilePathDAOImpl.CreateReplacePoc(new PocFiles(mail));
 	}
 	
 	@RequestMapping(path = "/DelPoc", method = RequestMethod.GET)
-	public void delPoc(@RequestParam("mail") String mail,
-			@RequestParam("path") String path) {
-		pocFilePathDAOImpl.deletePoc(new PocFiles(mail, path));
+	public void delPoc(@RequestParam("mail") String mail) {
+		pocFilePathDAOImpl.deletePoc(new PocFiles(mail));
 	}
 	
 	@ResponseBody
