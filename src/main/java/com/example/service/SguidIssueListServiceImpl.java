@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import com.example.model.SguidIssueList;
 import com.example.model.rowmapper.BranchCounterMapper;
 import com.example.model.rowmapper.IssueCountMapper;
+import com.example.model.rowmapper.RowDifferMapper;
 import com.example.repository.SguidIssueListRepository;
 
 @Service("sguidIssueList")
@@ -113,6 +114,13 @@ public class SguidIssueListServiceImpl implements SguidIssueListService{
 				"sum(case when issue_type = 'ERROR_SGUIDINDEX' then 1 else 0 end) as 'ERROR_SGUIDINDEX'" + 
 				"from sguid_issue_list issuelist group by branch, substring_index(substring_index(filepath,'/',3),'/',-1)) tmp";
 		return (List<BranchCounterMapper>)this.jdbcTemplate.query(sql, new BranchCounterMapper());
+	}
+
+	//TODO use jdbc template to query against rowdiffer records.
+	@Override
+	public Iterable<RowDifferMapper> getRowDifferMapper() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
