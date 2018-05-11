@@ -58,4 +58,10 @@ public class SguidIssueListRestController {
 	public Iterable<PocFiles> GetPocs(){
 		return pocFilePathDAOImpl.getPocs();
 	}
+	
+	@ResponseBody
+	@RequestMapping(path="/RowDiffer", method=RequestMethod.GET)
+	public Iterable<RowDifferMapper> GetRowDiffer(){
+		return this.sguidIssueListService.getRowDiffer();
+	}
 }
