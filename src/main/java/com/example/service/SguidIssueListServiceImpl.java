@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import com.example.model.SguidIssueList;
 import com.example.model.rowmapper.BranchCounterMapper;
 import com.example.model.rowmapper.IssueCountMapper;
+import com.example.model.rowmapper.RowDifferDetailMapper;
 import com.example.model.rowmapper.RowDifferMapper;
 import com.example.repository.SguidIssueListRepository;
 
@@ -119,8 +120,32 @@ public class SguidIssueListServiceImpl implements SguidIssueListService{
 	//TODO use jdbc template to query against rowdiffer records.
 	@Override
 	public Iterable<RowDifferMapper> getRowDifferMapper() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select branch, tar_branch, filepath, count(*) " +
+				"from sguid_issue_list " +
+				"where issue_type = 'INFOHasMoreRowkey' " +
+				"group by branch, tar_branch, filepath " +
+				"order by branch " ;
+		return (List<RowDifferMapper>)this.jdbcTemplate.query(sql, new RowDifferMapper());
 	}
+	
+	//TODO use jdbc template to query against rowdifferdetail records.
+	@Override
+	public Iterable<RowDifferDetailMapper> getRowDifferDetailMapper(String branch, String tarBranch, String filepath) {
+		String sql = "select branch, tar_branch, filepath, substring_index(comments,'|',1) as vo, substring_index(comments,'|',-1) as rowkey "+
+				"from sguid_issue_list "+
+				"where issue_type = 'INFOHasMoreRowkey' ";
+        if (!StringUtils.isEmpty(branch)) {
+            sql += " and branch = "+branch;  
+        }  
+        if (!StringUtils.isEmpty(tarBranch)) {
+            sql += " and tar_branch = "+tarBranch;  
+        }  
+        if (!StringUtils.isEmpty(filepath)) {
+            sql += " and filepath = "+filepath;  
+        }
+        
+		return (List<RowDifferDetailMapper>)this.jdbcTemplate.query (sql, new RowDifferDetailMapper());
+	}
+	
 	
 }

@@ -12,6 +12,8 @@ import com.example.model.SguidIssueList;
 import com.example.model.rowmapper.BranchCounterMapper;
 import com.example.model.rowmapper.IssueCountMapper;
 import com.example.model.rowmapper.PocFiles;
+import com.example.model.rowmapper.RowDifferDetailMapper;
+import com.example.model.rowmapper.RowDifferMapper;
 import com.example.service.SguidIssueListService;
 
 @RestController
@@ -62,6 +64,16 @@ public class SguidIssueListRestController {
 	@ResponseBody
 	@RequestMapping(path="/RowDiffer", method=RequestMethod.GET)
 	public Iterable<RowDifferMapper> GetRowDiffer(){
-		return this.sguidIssueListService.getRowDiffer();
+		return this.sguidIssueListService.getRowDifferMapper();
 	}
+
+	@ResponseBody
+	@RequestMapping(path="/RowDifferDetail", method = RequestMethod.GET)
+	public Iterable<RowDifferDetailMapper> GetRowDifferDetail(
+			@RequestParam("branch") String branch,
+			@RequestParam("tarBranch") String tarBranch,
+			@RequestParam("filePath") String filePath){
+		return this.sguidIssueListService.getRowDifferDetailMapper(branch, tarBranch, filePath);
+	}
+
 }

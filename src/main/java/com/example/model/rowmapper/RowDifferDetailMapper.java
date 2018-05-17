@@ -5,21 +5,23 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-public class RowDifferMapper  implements RowMapper<RowDifferMapper> {
+public class RowDifferDetailMapper  implements RowMapper<RowDifferDetailMapper> {
 	
 	private String branch;
 	private String tarBranch;
 	private String filepath;
-	private Long RowDiffCount;
+	private String vo;
+	private String rowkey;
 	
 	//TODO design and implement getter and setter of attribute of this mapper
 	@Override
-	public RowDifferMapper mapRow(ResultSet rs, int rowNum) throws SQLException {
-		RowDifferMapper rdm = new RowDifferMapper();
+	public RowDifferDetailMapper mapRow(ResultSet rs, int rowNum) throws SQLException {
+		RowDifferDetailMapper rdm = new RowDifferDetailMapper();
 		rdm.setBranch(rs.getString(1));
 		rdm.setTarBranch(rs.getString(2));
 		rdm.setFilepath(rs.getString(3));
-		rdm.setRowDiffCount(rs.getLong(4));
+		rdm.setVo(rs.getString(4));
+		rdm.setRowkey(rs.getString(5));
 		return rdm;
 	}
 
@@ -47,12 +49,20 @@ public class RowDifferMapper  implements RowMapper<RowDifferMapper> {
 		this.filepath = filepath;
 	}
 
-	public Long getRowDiffCount() {
-		return RowDiffCount;
+	public String getVo() {
+		return vo;
 	}
 
-	public void setRowDiffCount(Long rowDiffCount) {
-		RowDiffCount = rowDiffCount;
+	public void setVo(String vo) {
+		this.vo = vo;
+	}
+
+	public String getRowkey() {
+		return rowkey;
+	}
+
+	public void setRowkey(String rowkey) {
+		this.rowkey = rowkey;
 	}
 
 		
